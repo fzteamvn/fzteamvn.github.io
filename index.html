@@ -2,1600 +2,262 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>FFSTORE — Premium Gaming</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
-:root{
- --bg:#f6f6f6;
- --card:#fff;
- --text:#111;
- --muted:#888;
- --line:#e7e7e7;
- --soft:#f1f1f3;
- --black:#111;
-}
-
-body.dark{
- --bg:#0d0d0f;
- --card:#171719;
- --text:#fff;
- --muted:#999;
- --line:#29292c;
- --soft:#222225;
- --black:#fff;
-}
-
-html{scroll-behavior:smooth}
-
-body{
- font-family:Arial,Helvetica,sans-serif;
- background:var(--bg);
- color:var(--text);
- transition:.3s;
-}
-
+:root{--bg:#f5f5f7;--card:#fff;--text:#111;--muted:#888;--line:#e8e8e8;--black:#111;--soft:#f1f1f3}
+body.dark{--bg:#0d0d0f;--card:#171719;--text:#fff;--muted:#999;--line:#29292c;--black:#fff;--soft:#222225}
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
 button,input,select{font:inherit}
-
-/* HEADER */
-
-header{
- position:sticky;
- top:0;
- z-index:100;
- background:rgba(255,255,255,.85);
- backdrop-filter:blur(18px);
- border-bottom:1px solid var(--line);
-}
-
-body.dark header{
- background:rgba(20,20,22,.85);
-}
-
-.nav{
- max-width:1200px;
- height:70px;
- margin:auto;
- padding:0 20px;
- display:flex;
- align-items:center;
- justify-content:space-between;
-}
-
-.logo{
- font-size:22px;
- font-weight:900;
- letter-spacing:-1px;
-}
-
-.logo span{color:#999}
-
-.nav-right{
- display:flex;
- gap:8px;
-}
-
-.nav button{
- border:1px solid var(--line);
- background:var(--card);
- color:var(--text);
- padding:10px 14px;
- border-radius:12px;
- cursor:pointer;
- transition:.25s;
-}
-
-.nav button:hover{
- transform:translateY(-2px);
-}
-
-/* HERO */
-
-.hero{
- max-width:1200px;
- margin:auto;
- padding:85px 20px 60px;
- text-align:center;
-}
-
-.badge{
- display:inline-block;
- padding:8px 14px;
- border:1px solid var(--line);
- border-radius:30px;
- background:var(--card);
- color:var(--muted);
- font-size:11px;
- animation:floatBadge 3s ease-in-out infinite;
-}
-
-.hero h1{
- margin-top:25px;
- font-size:clamp(50px,9vw,100px);
- line-height:.9;
- letter-spacing:-7px;
- animation:heroIn .8s ease;
-}
-
-.hero h1 span{color:#aaa}
-
-.hero p{
- max-width:550px;
- margin:25px auto;
- color:var(--muted);
- font-size:14px;
- line-height:1.8;
- animation:heroIn .9s .1s both ease;
-}
-
-/* SALE */
-
-.sale{
- max-width:1200px;
- margin:auto;
- padding:0 20px 30px;
-}
-
-.sale-box{
- position:relative;
- overflow:hidden;
- display:flex;
- align-items:center;
- justify-content:space-between;
- background:var(--black);
- color:var(--card);
- padding:20px;
- border-radius:19px;
-}
-
-.sale-box:after{
- content:"";
- position:absolute;
- top:0;
- left:-100%;
- width:40%;
- height:100%;
- background:linear-gradient(
-  90deg,
-  transparent,
-  rgba(255,255,255,.13),
-  transparent
- );
- animation:saleShine 4s infinite;
-}
-
-.sale-title{
- font-size:13px;
- font-weight:bold;
-}
-
-.sale-title small{
- color:#aaa;
-}
-
-.timer{
- font-size:20px;
- font-weight:900;
- letter-spacing:2px;
- animation:pulse 2s infinite;
-}
-
-/* CONTAINER */
-
-.container{
- max-width:1200px;
- margin:auto;
- padding:20px;
-}
-
-.toolbar{
- display:flex;
- gap:10px;
- margin-bottom:25px;
-}
-
-.search{flex:1}
-
-.search input,
-select{
- width:100%;
- height:48px;
- border:1px solid var(--line);
- border-radius:13px;
- background:var(--card);
- color:var(--text);
- padding:0 15px;
- outline:none;
-}
-
-select{width:180px}
-
-/* PRODUCTS */
-
-.products{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:18px;
-}
-
-.card{
- position:relative;
- background:var(--card);
- border:1px solid var(--line);
- border-radius:22px;
- padding:10px;
- overflow:hidden;
-
- opacity:0;
- transform:translateY(30px);
-
- transition:
-  opacity .6s ease,
-  transform .6s cubic-bezier(.2,.8,.2,1),
-  box-shadow .35s ease;
-}
-
-.card.reveal{
- opacity:1;
- transform:translateY(0);
-}
-
-.card.reveal:hover{
- transform:
-  perspective(900px)
-  rotateX(2deg)
-  rotateY(-2deg)
-  translateY(-8px);
-
- box-shadow:0 25px 60px rgba(0,0,0,.12);
-}
-
-.card:before{
- content:"";
- position:absolute;
- top:0;
- left:-120%;
- width:60%;
- height:100%;
- z-index:2;
- pointer-events:none;
- background:linear-gradient(
-  110deg,
-  transparent,
-  rgba(255,255,255,.55),
-  transparent
- );
- transform:skewX(-20deg);
-}
-
-.card:hover:before{
- animation:shimmer 1s ease;
-}
-
-.product-img{
- height:190px;
- border-radius:16px;
- background:#f0f0f0;
- display:flex;
- justify-content:center;
- align-items:center;
- font-size:65px;
- transition:.4s;
-}
-
-body.dark .product-img{
- background:#202023;
-}
-
-.card:hover .product-img{
- transform:scale(1.025);
-}
-
-.info{
- padding:17px 8px 8px;
-}
-
-.info h3{
- font-size:17px;
-}
-
-.info p{
- margin-top:7px;
- color:var(--muted);
- font-size:12px;
-}
-
-.plan{
- margin-top:10px;
- padding:11px;
- border-radius:10px;
- background:var(--soft);
- border:1px solid var(--line);
- display:flex;
- justify-content:space-between;
- font-size:12px;
- cursor:pointer;
- transition:.2s;
-}
-
-.plan:hover{
- transform:translateX(3px);
-}
-
-.plan.active{
- background:var(--black);
- color:var(--card);
-}
-
-.buy{
- position:relative;
- overflow:hidden;
- width:100%;
- margin-top:12px;
- padding:13px;
- border:0;
- border-radius:11px;
- background:var(--black);
- color:var(--card);
- font-weight:bold;
- cursor:pointer;
- transition:.25s;
-}
-
-.buy:hover{
- transform:translateY(-2px);
- box-shadow:0 10px 25px rgba(0,0,0,.18);
-}
-
-.buy:active{
- transform:scale(.96);
-}
-
-/* FEATURES */
-
-.features{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:15px;
- margin-top:60px;
-}
-
-.feature{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:18px;
- padding:25px;
- transition:.3s;
-}
-
-.feature:hover{
- transform:translateY(-6px);
- box-shadow:0 18px 45px rgba(0,0,0,.08);
-}
-
-.feature h3{
- margin-bottom:8px;
- font-size:14px;
-}
-
-.feature p{
- color:var(--muted);
- font-size:12px;
- line-height:1.6;
-}
-
-/* FOOTER */
-
-footer{
- margin-top:70px;
- padding:30px;
- text-align:center;
- color:var(--muted);
- border-top:1px solid var(--line);
- font-size:11px;
-}
-
-/* OVERLAY */
-
-.overlay{
- position:fixed;
- inset:0;
- z-index:998;
- display:none;
- background:rgba(0,0,0,.4);
- backdrop-filter:blur(7px);
-}
-
-.overlay.show{
- display:block;
-}
-
-/* CART */
-
-.cart{
- position:fixed;
- top:0;
- right:-430px;
- z-index:999;
- width:410px;
- max-width:100%;
- height:100vh;
- padding:25px;
- background:var(--card);
- color:var(--text);
- box-shadow:-20px 0 60px rgba(0,0,0,.15);
- transition:.4s;
-}
-
-.cart.show{right:0}
-
-.cart-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding-bottom:20px;
- border-bottom:1px solid var(--line);
-}
-
-.close{
- width:35px;
- height:35px;
- border:0;
- border-radius:50%;
- background:var(--soft);
- color:var(--text);
- cursor:pointer;
- font-size:20px;
-}
-
-.cart-list{
- height:calc(100vh - 230px);
- overflow:auto;
-}
-
-.cart-item{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:16px 0;
- border-bottom:1px solid var(--line);
-}
-
-.cart-item b{
- display:block;
- font-size:12px;
-}
-
-.cart-item span{
- color:var(--muted);
- font-size:11px;
-}
-
-.remove{
- border:0;
- width:30px;
- height:30px;
- border-radius:8px;
- background:var(--soft);
- color:var(--text);
- cursor:pointer;
-}
-
-.total{
- display:flex;
- justify-content:space-between;
- margin-top:15px;
- font-weight:bold;
-}
-
-.checkout{
- width:100%;
- margin-top:13px;
- padding:14px;
- border:0;
- border-radius:12px;
- background:var(--black);
- color:var(--card);
- font-weight:bold;
- cursor:pointer;
-}
-
-/* PAYMENT */
-
-.payment{
- position:fixed;
- inset:0;
- z-index:2000;
- display:none;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:rgba(0,0,0,.5);
- backdrop-filter:blur(10px);
-}
-
-.payment.show{
- display:flex;
-}
-
-.payment-box{
- position:relative;
- width:390px;
- max-width:100%;
- padding:27px;
- border-radius:25px;
- background:var(--card);
- color:var(--text);
- text-align:center;
- animation:paymentIn .35s cubic-bezier(.2,.8,.2,1);
-}
-
-.payment-box h2{
- margin-top:12px;
-}
-
-.sub{
- margin:8px 0 18px;
- color:var(--muted);
- font-size:12px;
-}
-
-.qr{
- display:block;
- width:230px;
- height:230px;
- margin:auto;
- object-fit:cover;
- border-radius:15px;
- border:7px solid white;
- box-shadow:0 10px 35px rgba(0,0,0,.12);
- transition:.3s;
-}
-
-.qr:hover{
- transform:scale(1.03);
-}
-
-.bank{
- display:flex;
- flex-direction:column;
- gap:5px;
- margin-top:15px;
- font-size:12px;
-}
-
-.bank span{
- color:var(--muted);
-}
-
-.amount{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-top:17px;
- padding:13px;
- border-radius:12px;
- background:var(--soft);
-}
-
-.amount strong{
- font-size:17px;
-}
-
-.content{
- margin-top:10px;
- padding:11px;
- border:1px dashed var(--line);
- border-radius:11px;
- color:var(--muted);
- font-size:11px;
-}
-
-.content b{
- display:block;
- margin-top:4px;
- color:var(--text);
- font-size:12px;
-}
-
-.paid{
- width:100%;
- margin-top:13px;
- padding:14px;
- border:0;
- border-radius:12px;
- background:var(--black);
- color:var(--card);
- font-weight:bold;
- cursor:pointer;
-}
-
-/* TOAST */
-
-.toast{
- position:fixed;
- right:20px;
- bottom:20px;
- z-index:5000;
- padding:13px 17px;
- border-radius:12px;
- background:#111;
- color:white;
- font-size:12px;
- opacity:0;
- transform:translateY(20px);
- pointer-events:none;
- transition:.3s;
-}
-
-.toast.show{
- opacity:1;
- transform:translateY(0);
-}
-
-/* ANIMATION */
-
-@keyframes shimmer{
- from{left:-120%}
- to{left:150%}
-}
-
-@keyframes saleShine{
- 0%{left:-100%}
- 35%,100%{left:140%}
-}
-
-@keyframes pulse{
- 0%,100%{opacity:1}
- 50%{opacity:.65}
-}
-
-@keyframes floatBadge{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-4px)}
-}
-
-@keyframes heroIn{
- from{
-  opacity:0;
-  transform:translateY(25px);
- }
- to{
-  opacity:1;
-  transform:translateY(0);
- }
-}
-
-@keyframes paymentIn{
- from{
-  opacity:0;
-  transform:translateY(30px) scale(.92);
- }
- to{
-  opacity:1;
-  transform:none;
- }
-}
-
-/* MOBILE */
-
-@media(max-width:850px){
-
- .products{
-  grid-template-columns:repeat(2,1fr);
- }
-
- .features{
-  grid-template-columns:1fr;
- }
-
-}
-
-@media(max-width:550px){
-
- .hero{
-  padding-top:60px;
- }
-
- .hero h1{
-  font-size:55px;
-  letter-spacing:-4px;
- }
-
- .toolbar{
-  flex-direction:column;
- }
-
- select{
-  width:100%;
- }
-
- .products{
-  grid-template-columns:1fr;
- }
-
- .sale-box{
-  flex-direction:column;
-  align-items:flex-start;
-  gap:10px;
- }
-
- .cart{
-  width:100%;
-  right:-100%;
- }
-
- .qr{
-  width:210px;
-  height:210px;
- }
-
-}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.8);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+body.dark header{background:rgba(20,20,22,.8)}
+.nav{max-width:1200px;height:72px;margin:auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:21px;font-weight:900;letter-spacing:-1px}.logo span{color:#999}
+.nav-right{display:flex;gap:8px;align-items:center}
+.icon-btn{width:40px;height:40px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:12px;cursor:pointer}
+.cart-btn{border:1px solid var(--line);background:var(--card);color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
+#cartCount{background:var(--black);color:var(--card);border-radius:50%;padding:3px 7px;font-size:10px}
+.hero{max-width:1200px;margin:auto;padding:90px 20px 60px;text-align:center}
+.badge{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:30px;background:var(--card);color:var(--muted);font-size:11px}
+.hero h1{font-size:clamp(48px,8vw,90px);line-height:.9;letter-spacing:-6px;margin-top:25px}.hero h1 span{color:#999}
+.hero p{max-width:550px;margin:25px auto;color:var(--muted);font-size:14px;line-height:1.8}
+.sale{max-width:1200px;margin:0 auto 30px;padding:0 20px}.sale-box{background:var(--black);color:var(--card);border-radius:20px;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.sale-title{font-size:13px;font-weight:800}.sale-title span{color:#aaa;font-weight:500}.timer{font-size:20px;font-weight:900;letter-spacing:2px}
+.container{max-width:1200px;margin:auto;padding:20px}.toolbar{display:flex;gap:10px;margin-bottom:25px}.search{flex:1}.search input{width:100%;padding:14px 17px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--text);outline:none}.filter{padding:0 15px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--text);outline:none}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:10px;overflow:hidden;transition:.35s}.card:hover{transform:translateY(-7px);box-shadow:0 20px 50px rgba(0,0,0,.09)}
+.image{height:205px;border-radius:16px;background:linear-gradient(135deg,#eee,#fafafa);display:flex;justify-content:center;align-items:center;font-size:60px}.dark .image{background:linear-gradient(135deg,#202023,#111114)}
+.tag{position:absolute;top:18px;left:18px;background:#111;color:#fff;padding:6px 9px;border-radius:8px;font-size:9px;font-weight:800}
+.heart{position:absolute;top:16px;right:16px;width:34px;height:34px;border:0;border-radius:50%;background:rgba(255,255,255,.85);cursor:pointer;font-size:16px}.heart.active{color:#ff315b}
+.info{padding:18px 8px 8px}.info h3{font-size:16px}.info p{color:var(--muted);font-size:12px;margin-top:7px}
+.prices{margin-top:14px;display:flex;flex-direction:column;gap:6px}.plan{display:flex;justify-content:space-between;padding:9px 11px;background:var(--soft);border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--muted);font-size:11px}.plan.selected{background:var(--black);color:var(--card)}.buy{width:100%;margin-top:12px;padding:12px;border:0;border-radius:11px;background:var(--black);color:var(--card);cursor:pointer;font-size:11px;font-weight:800}
+.no-result{display:none;text-align:center;padding:50px;color:var(--muted)}
+.features{margin-top:65px;display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{padding:25px;background:var(--card);border:1px solid var(--line);border-radius:18px}.feature-icon{font-size:23px;margin-bottom:12px}.feature h3{font-size:14px;margin-bottom:7px}.feature p{color:var(--muted);font-size:12px;line-height:1.6}
+.overlay,.payment-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:.3s}.overlay{z-index:998}.payment-overlay{z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px}
+.overlay.active,.payment-overlay.active{opacity:1;visibility:visible}
+.cart{position:fixed;right:-430px;top:0;width:400px;max-width:100%;height:100vh;z-index:999;background:var(--card);padding:25px;transition:.4s;box-shadow:-20px 0 60px rgba(0,0,0,.15)}.cart.active{right:0}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}.close,.payment-close{width:35px;height:35px;border:0;border-radius:50%;background:var(--soft);color:var(--text);cursor:pointer;font-size:20px}
+.cart-items{height:calc(100vh - 240px);overflow:auto}.cart-item{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}.cart-item strong{display:block;font-size:12px}.cart-item small{color:var(--muted)}.remove{border:0;background:var(--soft);color:var(--text);border-radius:8px;width:28px;height:28px;cursor:pointer}
+.discount{display:flex;gap:7px;margin-top:15px}.discount input{flex:1;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);outline:none}.discount button{padding:0 13px;border:0;border-radius:10px;background:var(--black);color:var(--card);cursor:pointer}
+.total{display:flex;justify-content:space-between;margin-top:15px;font-weight:800}.checkout{width:100%;margin-top:13px;padding:14px;border:0;border-radius:12px;background:var(--black);color:var(--card);cursor:pointer;font-weight:800}
+.payment-box{position:relative;width:390px;max-width:100%;padding:28px;border-radius:26px;background:var(--card);color:var(--text);text-align:center;box-shadow:0 30px 100px rgba(0,0,0,.25);animation:in .3s ease}
+@keyframes in{from{transform:translateY(20px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+.payment-close{position:absolute;top:15px;right:15px}.payment-badge{display:inline-block;padding:6px 10px;border-radius:20px;background:var(--soft);color:var(--muted);font-size:9px;font-weight:800;letter-spacing:1px}.payment-box h2{margin-top:14px;font-size:22px}.payment-sub{margin:7px 0 18px;color:var(--muted);font-size:11px}
+.payment-qr{display:block;width:230px;height:230px;object-fit:cover;margin:auto;border-radius:15px;border:8px solid #fff;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.bank-info{display:flex;flex-direction:column;gap:5px;margin-top:15px;font-size:11px}.bank-info b{font-size:13px}.bank-info span{color:var(--muted)}
+.payment-total{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding:13px;border-radius:12px;background:var(--soft);text-align:left;font-size:10px}.payment-total strong{font-size:17px}
+.payment-note{margin-top:10px;padding:11px;border:1px dashed var(--line);border-radius:11px;color:var(--muted);font-size:10px}.payment-note b{display:block;margin-top:4px;color:var(--text);font-size:12px}
+.paid-btn{width:100%;margin-top:14px;padding:14px;border:0;border-radius:12px;background:var(--black);color:var(--card);cursor:pointer;font-size:11px;font-weight:800}
+.toast{position:fixed;right:20px;bottom:20px;z-index:4000;padding:13px 17px;background:#111;color:#fff;border-radius:12px;font-size:12px;opacity:0;transform:translateY(20px);pointer-events:none;transition:.3s}.toast.show{opacity:1;transform:none}
+footer{margin-top:80px;padding:35px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
+@media(max-width:850px){.products{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}}
+@media(max-width:560px){.hero{padding:65px 20px 50px}.hero h1{font-size:50px;letter-spacing:-4px}.sale-box{flex-direction:column;align-items:flex-start}.toolbar{flex-direction:column}.filter{height:45px}.products{grid-template-columns:1fr}.cart{width:100%;right:-100%}}
 </style>
 </head>
-
 <body>
 
-<header>
-<div class="nav">
-
-<div class="logo">
-FF<span>STORE.</span>
-</div>
-
+<header><div class="nav">
+<div class="logo">FF<span>STORE.</span></div>
 <div class="nav-right">
-
-<button onclick="toggleTheme()" id="theme">
-🌙
-</button>
-
-<button onclick="openCart()">
-🛒 Giỏ hàng
-<b id="cartCount">0</b>
-</button>
-
+<button class="icon-btn" onclick="toggleTheme()" id="theme">🌙</button>
+<button class="cart-btn" onclick="toggleCart()">🛒 Giỏ hàng <span id="cartCount">0</span></button>
 </div>
-
-</div>
-</header>
-
+</div></header>
 
 <section class="hero">
-
-<div class="badge">
-✦ PREMIUM GAMING STORE
-</div>
-
-<h1>
-FREE FIRE<br>
-<span>STORE.</span>
-</h1>
-
-<p>
-Kho sản phẩm gaming với giao diện hiện đại,
-tối giản và mượt mà trên điện thoại.
-</p>
-
+<div class="badge">✦ PREMIUM GAMING STORE</div>
+<h1>FREE FIRE<br><span>STORE.</span></h1>
+<p>Kho sản phẩm gaming với giao diện hiện đại, tối giản và trải nghiệm mua hàng mượt mà.</p>
 </section>
 
-
-<section class="sale">
-
-<div class="sale-box">
-
-<div class="sale-title">
-⚡ FLASH SALE<br>
-<small>Ưu đãi giới hạn</small>
-</div>
-
-<div class="timer" id="timer">
-02:00:00
-</div>
-
-</div>
-
-</section>
-
+<section class="sale"><div class="sale-box">
+<div class="sale-title">⚡ FLASH SALE<br><span>Ưu đãi giới hạn</span></div>
+<div class="timer" id="timer">02:00:00</div>
+</div></section>
 
 <main class="container">
-
 <div class="toolbar">
-
-<div class="search">
-<input
-id="search"
-placeholder="🔍  Tìm sản phẩm..."
-oninput="searchProduct()">
-</div>
-
-<select
-id="filter"
-onchange="searchProduct()">
-
-<option value="all">
-Tất cả sản phẩm
-</option>
-
-<option value="proxy">
-Proxy
-</option>
-
-<option value="menu">
-Menu
-</option>
-
-<option value="files">
-Files
-</option>
-
-<option value="map">
-Hack Map
-</option>
-
+<div class="search"><input id="search" type="text" placeholder="🔍  Tìm sản phẩm..." oninput="filterProducts()"></div>
+<select class="filter" id="category" onchange="filterProducts()">
+<option value="all">Tất cả sản phẩm</option><option value="proxy">Proxy</option><option value="menu">Menu</option><option value="files">Files</option><option value="map">Hack Map</option>
 </select>
+</div>
+
+<div class="products" id="products">
+
+<div class="card" data-name="proxy" data-category="proxy"><div class="image"><span class="tag">HOT</span><button class="heart" onclick="favorite(this)">♡</button>🌐</div><div class="info"><h3>PROXY</h3><p>Drag • Body • Cổ • Ngực</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'PROXY - 1 Tuần',50000)"><span>1 Tuần</span><b>50K</b></div>
+<div class="plan" onclick="selectPlan(this,'PROXY - 1 Tháng',90000)"><span>1 Tháng</span><b>90K</b></div>
+<div class="plan" onclick="selectPlan(this,'PROXY - Vĩnh Viễn',250000)"><span>Vĩnh Viễn</span><b>250K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="files" data-category="files"><div class="image"><span class="tag">ANDROID</span><button class="heart" onclick="favorite(this)">♡</button>📁</div><div class="info"><h3>FILES</h3><p>Proxy Android</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'FILES - 1 Tuần',100000)"><span>1 Tuần</span><b>100K</b></div>
+<div class="plan" onclick="selectPlan(this,'FILES - 1 Tháng',200000)"><span>1 Tháng</span><b>200K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="drip" data-category="menu"><div class="image"><span class="tag">MENU</span><button class="heart" onclick="favorite(this)">♡</button>💻</div><div class="info"><h3>DRIP CLIENT</h3><p>Gói dịch vụ demo</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'DRIP CLIENT - 1 Tuần',100000)"><span>1 Tuần</span><b>100K</b></div>
+<div class="plan" onclick="selectPlan(this,'DRIP CLIENT - 1 Tháng',200000)"><span>1 Tháng</span><b>200K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="mugil lite" data-category="menu"><div class="image"><span class="tag">MENU</span><button class="heart" onclick="favorite(this)">♡</button>🪐</div><div class="info"><h3>MUGIL LITE</h3><p>Gói dịch vụ demo</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'MUGIL LITE - 1 Tuần',150000)"><span>1 Tuần</span><b>150K</b></div>
+<div class="plan" onclick="selectPlan(this,'MUGIL LITE - 1 Tháng',350000)"><span>1 Tháng</span><b>350K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="mugil pro" data-category="menu"><div class="image"><span class="tag">PRO</span><button class="heart" onclick="favorite(this)">♡</button>🏆</div><div class="info"><h3>MUGIL PRO</h3><p>Gói dịch vụ demo cao cấp</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'MUGIL PRO - 1 Tuần',215000)"><span>1 Tuần</span><b>215K</b></div>
+<div class="plan" onclick="selectPlan(this,'MUGIL PRO - 1 Tháng',450000)"><span>1 Tháng</span><b>450K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="fluorite" data-category="menu"><div class="image"><span class="tag">PREMIUM</span><button class="heart" onclick="favorite(this)">♡</button>💎</div><div class="info"><h3>FLUORITE</h3><p>Gói dịch vụ demo</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'FLUORITE - 1 Tuần',200000)"><span>1 Tuần</span><b>200K</b></div>
+<div class="plan" onclick="selectPlan(this,'FLUORITE - 1 Tháng',350000)"><span>1 Tháng</span><b>350K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
+
+<div class="card" data-name="hack map" data-category="map"><div class="image"><span class="tag">MAP</span><button class="heart" onclick="favorite(this)">♡</button>🗺️</div><div class="info"><h3>HACK MAP</h3><p>Menu Liên Quân</p><div class="prices">
+<div class="plan selected" onclick="selectPlan(this,'HACK MAP - 1 Tháng',150000)"><span>1 Tháng</span><b>150K</b></div>
+</div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
 
 </div>
 
-
-<div class="products">
-
-
-<!-- PROXY -->
-
-<div class="card"
-data-name="proxy"
-data-type="proxy">
-
-<div class="product-img">🌐</div>
-
-<div class="info">
-
-<h3>PROXY</h3>
-
-<p>Drag • Body • Cổ • Ngực</p>
-
-<div class="plan active"
-onclick="choose(this,'PROXY - 1 Tuần',50000)">
-<span>1 Tuần</span>
-<b>50K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'PROXY - 1 Tháng',90000)">
-<span>1 Tháng</span>
-<b>90K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'PROXY - Vĩnh Viễn',250000)">
-<span>Vĩnh Viễn</span>
-<b>250K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- FILES -->
-
-<div class="card"
-data-name="files"
-data-type="files">
-
-<div class="product-img">📁</div>
-
-<div class="info">
-
-<h3>FILES</h3>
-
-<p>Proxy Android</p>
-
-<div class="plan active"
-onclick="choose(this,'FILES - 1 Tuần',100000)">
-<span>1 Tuần</span>
-<b>100K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'FILES - 1 Tháng',200000)">
-<span>1 Tháng</span>
-<b>200K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- DRIP -->
-
-<div class="card"
-data-name="drip"
-data-type="menu">
-
-<div class="product-img">💻</div>
-
-<div class="info">
-
-<h3>DRIP CLIENT</h3>
-
-<p>Gói dịch vụ</p>
-
-<div class="plan active"
-onclick="choose(this,'DRIP CLIENT - 1 Tuần',100000)">
-<span>1 Tuần</span>
-<b>100K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'DRIP CLIENT - 1 Tháng',200000)">
-<span>1 Tháng</span>
-<b>200K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- MUGIL LITE -->
-
-<div class="card"
-data-name="mugil lite"
-data-type="menu">
-
-<div class="product-img">🪐</div>
-
-<div class="info">
-
-<h3>MUGIL LITE</h3>
-
-<p>Gói dịch vụ</p>
-
-<div class="plan active"
-onclick="choose(this,'MUGIL LITE - 1 Tuần',150000)">
-<span>1 Tuần</span>
-<b>150K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'MUGIL LITE - 1 Tháng',350000)">
-<span>1 Tháng</span>
-<b>350K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- MUGIL PRO -->
-
-<div class="card"
-data-name="mugil pro"
-data-type="menu">
-
-<div class="product-img">🏆</div>
-
-<div class="info">
-
-<h3>MUGIL PRO</h3>
-
-<p>Gói dịch vụ cao cấp</p>
-
-<div class="plan active"
-onclick="choose(this,'MUGIL PRO - 1 Tuần',215000)">
-<span>1 Tuần</span>
-<b>215K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'MUGIL PRO - 1 Tháng',450000)">
-<span>1 Tháng</span>
-<b>450K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- FLUORITE -->
-
-<div class="card"
-data-name="fluorite"
-data-type="menu">
-
-<div class="product-img">💎</div>
-
-<div class="info">
-
-<h3>FLUORITE</h3>
-
-<p>Gói dịch vụ</p>
-
-<div class="plan active"
-onclick="choose(this,'FLUORITE - 1 Tuần',200000)">
-<span>1 Tuần</span>
-<b>200K</b>
-</div>
-
-<div class="plan"
-onclick="choose(this,'FLUORITE - 1 Tháng',350000)">
-<span>1 Tháng</span>
-<b>350K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-
-<!-- HACK MAP -->
-
-<div class="card"
-data-name="hack map"
-data-type="map">
-
-<div class="product-img">🗺️</div>
-
-<div class="info">
-
-<h3>HACK MAP</h3>
-
-<p>Menu Liên Quân</p>
-
-<div class="plan active"
-onclick="choose(this,'HACK MAP - 1 Tháng',150000)">
-<span>1 Tháng</span>
-<b>150K</b>
-</div>
-
-<button class="buy"
-onclick="buy(this)">
-MUA NGAY
-</button>
-
-</div>
-</div>
-
-</div>
-
+<div class="no-result" id="noResult">Không tìm thấy sản phẩm 😢</div>
 
 <div class="features">
-
-<div class="feature">
-<h3>⚡ Mượt mà</h3>
-<p>Animation nhẹ và tối ưu cho điện thoại.</p>
+<div class="feature"><div class="feature-icon">⚡</div><h3>Siêu mượt</h3><p>Animation nhẹ và tối ưu cho mobile.</p></div>
+<div class="feature"><div class="feature-icon">🎁</div><h3>Ưu đãi</h3><p>Hỗ trợ mã giảm giá trực tiếp trong giỏ hàng.</p></div>
+<div class="feature"><div class="feature-icon">🔒</div><h3>Premium UI</h3><p>Thiết kế hiện đại, tối giản và dễ tùy chỉnh.</p></div>
 </div>
-
-<div class="feature">
-<h3>🎁 Ưu đãi</h3>
-<p>Hỗ trợ chương trình giảm giá.</p>
-</div>
-
-<div class="feature">
-<h3>🔒 Thanh toán</h3>
-<p>Thanh toán bằng QR Vietcombank.</p>
-</div>
-
-</div>
-
 </main>
 
+<footer>© 2026 FFSTORE — Premium Gaming Store</footer>
 
-<footer>
-© 2026 FFSTORE — Premium Gaming Store
-</footer>
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
 
-
-<!-- OVERLAY -->
-
-<div
-class="overlay"
-id="overlay"
-onclick="closeCart()">
+<div class="cart" id="cart">
+<div class="cart-head"><h2>🛒 Giỏ hàng</h2><button class="close" onclick="toggleCart()">×</button></div>
+<div class="cart-items" id="cartItems"><p style="color:#999;text-align:center;margin-top:40px">Giỏ hàng đang trống.</p></div>
+<div class="discount"><input id="coupon" placeholder="Mã giảm giá"><button onclick="applyCoupon()">Áp dụng</button></div>
+<div class="total"><span>Tổng</span><span id="total">0đ</span></div>
+<button class="checkout" onclick="checkout()">TIẾN HÀNH THANH TOÁN</button>
 </div>
 
-
-<!-- CART -->
-
-<div
-class="cart"
-id="cart">
-
-<div class="cart-head">
-
-<h2>🛒 Giỏ hàng</h2>
-
-<button
-class="close"
-onclick="closeCart()">
-×
-</button>
-
-</div>
-
-
-<div
-class="cart-list"
-id="cartList">
-
-<p
-style="text-align:center;color:#999;margin-top:40px">
-Giỏ hàng đang trống
-</p>
-
-</div>
-
-
-<div class="total">
-
-<span>Tổng</span>
-
-<strong id="total">
-0đ
-</strong>
-
-</div>
-
-
-<button
-class="checkout"
-onclick="payment()">
-
-TIẾN HÀNH THANH TOÁN
-
-</button>
-
-</div>
-
-
-<!-- PAYMENT -->
-
-<div
-class="payment"
-id="payment">
-
+<div class="payment-overlay" id="paymentOverlay">
 <div class="payment-box">
-
-<button
-class="close"
-style="position:absolute;right:15px;top:15px"
-onclick="closePayment()">
-×
-</button>
-
-<h2>Thanh toán</h2>
-
-<div class="sub">
-Quét mã QR để thanh toán
+<button class="payment-close" onclick="closePayment()">×</button>
+<div class="payment-badge">SECURE PAYMENT</div>
+<h2>Thanh toán đơn hàng</h2>
+<p class="payment-sub">Quét mã QR bằng ứng dụng ngân hàng</p>
+<img src="IMG_2432.jpeg" class="payment-qr" alt="QR Vietcombank">
+<div class="bank-info"><b>VIETCOMBANK</b><span>HUYNH HOANG HAO</span><span>STK: 1064505490</span></div>
+<div class="payment-total"><span>Số tiền cần thanh toán</span><strong id="paymentAmount">0đ</strong></div>
+<div class="payment-note">Nội dung chuyển khoản:<b id="paymentCode">FFSTORE</b></div>
+<button class="paid-btn" onclick="paid()">✓ TÔI ĐÃ THANH TOÁN</button>
+</div>
 </div>
 
-
-<img
-src="IMG_2432.jpeg"
-class="qr"
-alt="QR Vietcombank">
-
-
-<div class="bank">
-
-<b>VIETCOMBANK</b>
-
-<span>HUYNH HOANG HAO</span>
-
-<span>STK: 1064505490</span>
-
-</div>
-
-
-<div class="amount">
-
-<span>Số tiền</span>
-
-<strong id="payAmount">
-0đ
-</strong>
-
-</div>
-
-
-<div class="content">
-
-Nội dung chuyển khoản
-
-<b id="payContent">
-FFSTORE
-</b>
-
-</div>
-
-
-<button
-class="paid"
-onclick="paid()">
-
-✓ TÔI ĐÃ THANH TOÁN
-
-</button>
-
-</div>
-
-</div>
-
-
-<div
-class="toast"
-id="toast">
-</div>
-
+<div class="toast" id="toast"></div>
 
 <script>
+let cart=[],total=0,discount=0,selectedPlan={};
 
-let cart=[];
-let total=0;
-let selected={};
-
-
-/* CHỌN GÓI */
-
-function choose(el,name,price){
-
- const card=el.closest(".card");
-
- card.querySelectorAll(".plan")
- .forEach(x=>x.classList.remove("active"));
-
- el.classList.add("active");
-
- selected[card.dataset.name]={
-  name:name,
-  price:price
- };
-
+function selectPlan(el,name,price){
+ let card=el.closest(".card");
+ card.querySelectorAll(".plan").forEach(x=>x.classList.remove("selected"));
+ el.classList.add("selected");
+ selectedPlan[card.dataset.name]={name,price};
 }
 
-
-/* MUA */
-
-function buy(button){
-
- const card=button.closest(".card");
- const key=card.dataset.name;
-
- if(!selected[key]){
-  card.querySelector(".plan").click();
- }
-
- const item=selected[key];
-
- cart.push(item);
-
- total+=item.price;
-
- updateCart();
-
- showToast("✓ Đã thêm vào giỏ hàng");
-
- openCart();
-
+function buySelected(button){
+ let card=button.closest(".card"),key=card.dataset.name;
+ if(!selectedPlan[key]) card.querySelector(".plan").click();
+ let product=selectedPlan[key];
+ cart.push(product); total+=product.price; updateCart();
+ showToast("✓ Đã thêm "+product.name);
+ document.getElementById("cart").classList.add("active");
+ document.getElementById("overlay").classList.add("active");
 }
-
-
-/* UPDATE CART */
 
 function updateCart(){
-
- document.getElementById("cartCount")
- .innerText=cart.length;
-
- const list=
- document.getElementById("cartList");
-
- if(cart.length===0){
-
-  list.innerHTML=
-  "<p style='text-align:center;color:#999;margin-top:40px'>Giỏ hàng đang trống</p>";
-
- }else{
-
-  list.innerHTML=cart.map((item,index)=>`
-
-   <div class="cart-item">
-
-    <div>
-     <b>${item.name}</b>
-     <span>
-      ${item.price.toLocaleString("vi-VN")}đ
-     </span>
-    </div>
-
-    <button
-    class="remove"
-    onclick="removeItem(${index})">
-    ×
-    </button>
-
-   </div>
-
-  `).join("");
-
- }
-
- document.getElementById("total")
- .innerText=
- total.toLocaleString("vi-VN")+"đ";
-
+ document.getElementById("cartCount").innerText=cart.length;
+ let box=document.getElementById("cartItems");
+ if(!cart.length) box.innerHTML='<p style="color:#999;text-align:center;margin-top:40px">Giỏ hàng đang trống.</p>';
+ else box.innerHTML=cart.map((x,i)=>`<div class="cart-item"><div><strong>${x.name}</strong><small>${x.price.toLocaleString("vi-VN")}đ</small></div><button class="remove" onclick="removeItem(${i})">×</button></div>`).join("");
+ document.getElementById("total").innerText=Math.round(total*(1-discount)).toLocaleString("vi-VN")+"đ";
 }
 
+function removeItem(i){total-=cart[i].price;cart.splice(i,1);updateCart()}
 
-/* REMOVE */
+function toggleCart(){
+ document.getElementById("cart").classList.toggle("active");
+ document.getElementById("overlay").classList.toggle("active");
+}
 
-function removeItem(index){
-
- total-=cart[index].price;
-
- cart.splice(index,1);
-
+function applyCoupon(){
+ let code=document.getElementById("coupon").value.trim().toUpperCase();
+ if(code==="FF10"){discount=.10;showToast("🎁 Giảm 10% thành công!")}
+ else{discount=0;showToast("❌ Mã giảm giá không hợp lệ")}
  updateCart();
-
 }
 
-
-/* OPEN CART */
-
-function openCart(){
-
- document.getElementById("cart")
- .classList.add("show");
-
- document.getElementById("overlay")
- .classList.add("show");
-
-}
-
-
-/* CLOSE CART */
-
-function closeCart(){
-
- document.getElementById("cart")
- .classList.remove("show");
-
- document.getElementById("overlay")
- .classList.remove("show");
-
-}
-
-
-/* PAYMENT */
-
-function payment(){
-
- if(cart.length===0){
-
-  showToast("🛒 Giỏ hàng đang trống");
-
-  return;
- }
-
- document.getElementById("payAmount")
- .innerText=
- total.toLocaleString("vi-VN")+"đ";
-
-
- const code=
- "FFSTORE"+
- Math.random()
- .toString(36)
- .substring(2,7)
- .toUpperCase();
-
-
- document.getElementById("payContent")
- .innerText=code;
-
-
- document.getElementById("payment")
- .classList.add("show");
-
-}
-
-
-/* CLOSE PAYMENT */
-
-function closePayment(){
-
- document.getElementById("payment")
- .classList.remove("show");
-
-}
-
-
-/* PAID */
-
-function paid(){
-
- showToast("✓ Đã ghi nhận yêu cầu");
-
- closePayment();
-
-}
-
-
-/* SEARCH */
-
-function searchProduct(){
-
- const text=
- document.getElementById("search")
- .value
- .toLowerCase();
-
- const type=
- document.getElementById("filter")
- .value;
-
- document.querySelectorAll(".card")
- .forEach(card=>{
-
-  const name=
-  card.dataset.name;
-
-  const cardType=
-  card.dataset.type;
-
-  const okName=
-  name.includes(text);
-
-  const okType=
-  type==="all" ||
-  cardType===type;
-
-  card.style.display=
-  okName && okType
-  ? "block"
-  : "none";
-
+function filterProducts(){
+ let text=document.getElementById("search").value.toLowerCase(),cat=document.getElementById("category").value,found=0;
+ document.querySelectorAll(".card").forEach(card=>{
+  let ok=card.dataset.name.includes(text)&&(cat==="all"||card.dataset.category===cat);
+  card.style.display=ok?"block":"none"; if(ok)found++;
  });
-
+ document.getElementById("noResult").style.display=found?"none":"block";
 }
 
+function favorite(btn){btn.classList.toggle("active");btn.innerText=btn.classList.contains("active")?"♥":"♡";showToast(btn.classList.contains("active")?"♥ Đã thêm yêu thích":"Đã bỏ yêu thích")}
 
-/* THEME */
-
-function toggleTheme(){
-
- document.body.classList.toggle("dark");
-
- document.getElementById("theme")
- .innerText=
- document.body.classList.contains("dark")
- ? "☀️"
- : "🌙";
-
-}
-
-
-/* TOAST */
+function toggleTheme(){document.body.classList.toggle("dark");document.getElementById("theme").innerText=document.body.classList.contains("dark")?"☀️":"🌙"}
 
 function showToast(text){
-
- const toast=
- document.getElementById("toast");
-
- toast.innerText=text;
-
- toast.classList.add("show");
-
- clearTimeout(window.toastTimer);
-
- window.toastTimer=
- setTimeout(()=>{
-  toast.classList.remove("show");
- },2200);
-
+ let t=document.getElementById("toast");t.innerText=text;t.classList.add("show");
+ clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove("show"),2200);
 }
 
+function checkout(){
+ if(!cart.length){showToast("🛒 Giỏ hàng đang trống");return}
+ let finalPrice=Math.round(total*(1-discount));
+ document.getElementById("paymentAmount").innerText=finalPrice.toLocaleString("vi-VN")+"đ";
+ document.getElementById("paymentCode").innerText="FFSTORE"+Math.random().toString(36).substring(2,7).toUpperCase();
+ document.getElementById("paymentOverlay").classList.add("active");
+}
 
-/* FLASH SALE */
+function closePayment(){document.getElementById("paymentOverlay").classList.remove("active")}
+function paid(){showToast("✓ Đã ghi nhận yêu cầu thanh toán");closePayment()}
 
 let seconds=7200;
-
-function updateTimer(){
-
- const h=
- Math.floor(seconds/3600);
-
- const m=
- Math.floor((seconds%3600)/60);
-
- const s=
- seconds%60;
-
- document.getElementById("timer")
- .innerText=
- String(h).padStart(2,"0")+":"+
- String(m).padStart(2,"0")+":"+
- String(s).padStart(2,"0");
-
+function timer(){
+ let h=Math.floor(seconds/3600),m=Math.floor((seconds%3600)/60),s=seconds%60;
+ document.getElementById("timer").innerText=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
  if(seconds>0)seconds--;
-
 }
+setInterval(timer,1000);timer();
 
-setInterval(updateTimer,1000);
+document.querySelectorAll(".card").forEach(card=>{let first=card.querySelector(".plan");if(first)first.click()});
+</script>
 
-updateTimer();
-
-
-/* SCROLL REVEAL */
-
-const observer=
-new IntersectionObserver(
- entries=>{
-
-  entries.forEach(entry=>{
-
-   if(entry.isIntersecting){
-
-    entry.target.classList.add("reveal");
-
-    observer.unobserve(entry.target);
-
-   }
-
-  });
-
- },
- {threshold:.12}
-);
-
-document.querySelectorAll(".card")
-.forEach(card=>observer.observe(card));
-
-
-/* KHỞI TẠO */
-
-document.querySelectorAll(".card")
-.forEach(card=>{
-
- const first=
- card.querySelector(".plan");
-
- if(first){
-  first.click();
- }
-
-});
-
+<!-- Background music -->
+<audio id="bgMusic" src="background.mp3" loop preload="auto"></audio>
+<button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc">🔇</button>
+<style>
+.music-toggle{position:fixed;right:18px;bottom:18px;z-index:9999;width:52px;height:52px;border:0;border-radius:50%;background:#111;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:transform .2s ease}
+.music-toggle:hover{transform:scale(1.08)}
+.music-toggle.playing{animation:musicPulse 1.6s infinite}
+@keyframes musicPulse{0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.18)}50%{box-shadow:0 10px 30px rgba(0,0,0,.18),0 0 0 10px rgba(0,0,0,.06)}}
+</style>
+<script>
+(() => {
+  const music=document.getElementById('bgMusic'), btn=document.getElementById('musicToggle');
+  const update=()=>{const on=!music.paused;btn.textContent=on?'🔊':'🔇';btn.classList.toggle('playing',on)};
+  btn.addEventListener('click',async()=>{try{if(music.paused)await music.play();else music.pause();update()}catch(e){}});
+  music.play().then(update).catch(update);
+  document.addEventListener('pointerdown',async()=>{if(music.paused){try{await music.play()}catch(e){}update()}},{once:true});
+})();
 </script>
 
 </body>
