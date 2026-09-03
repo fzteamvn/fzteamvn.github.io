@@ -241,22 +241,26 @@ setInterval(timer,1000);timer();
 document.querySelectorAll(".card").forEach(card=>{let first=card.querySelector(".plan");if(first)first.click()});
 </script>
 
-<!-- Background music -->
-<audio id="bgMusic" src="background.mp3" loop preload="auto"></audio>
-<button id="musicToggle" class="music-toggle" aria-label="Bật/tắt nhạc">🔇</button>
-<style>
-.music-toggle{position:fixed;right:18px;bottom:18px;z-index:9999;width:52px;height:52px;border:0;border-radius:50%;background:#111;color:#fff;font-size:22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.18);transition:transform .2s ease}
-.music-toggle:hover{transform:scale(1.08)}
-.music-toggle.playing{animation:musicPulse 1.6s infinite}
-@keyframes musicPulse{0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.18)}50%{box-shadow:0 10px 30px rgba(0,0,0,.18),0 0 0 10px rgba(0,0,0,.06)}}
-</style>
+<!-- AUTO BACKGROUND MUSIC -->
+<audio id="bgMusic" src="background.mp3" autoplay loop playsinline preload="auto"></audio>
 <script>
-(() => {
-  const music=document.getElementById('bgMusic'), btn=document.getElementById('musicToggle');
-  const update=()=>{const on=!music.paused;btn.textContent=on?'🔊':'🔇';btn.classList.toggle('playing',on)};
-  btn.addEventListener('click',async()=>{try{if(music.paused)await music.play();else music.pause();update()}catch(e){}});
-  music.play().then(update).catch(update);
-  document.addEventListener('pointerdown',async()=>{if(music.paused){try{await music.play()}catch(e){}update()}},{once:true});
+(function () {
+  const audio = document.getElementById('bgMusic');
+
+  // Try to start immediately when the WWeb opens.
+  audio.volume = 1;
+  const startMusic = () => {
+    audio.play().catch(() => {
+      // iPhone/Safari may block unmuted autoplay.
+      // We retry when the browser permits playback.
+    });
+  };
+
+  startMusic();
+  window.addEventListener('load', startMusic);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && audio.paused) startMusic();
+  });
 })();
 </script>
 
