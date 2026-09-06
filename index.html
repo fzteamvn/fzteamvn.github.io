@@ -52,6 +52,38 @@ body.dark header{background:rgba(20,20,22,.8)}
 footer{margin-top:80px;padding:35px;text-align:center;border-top:1px solid var(--line);color:var(--muted);font-size:11px}
 @media(max-width:850px){.products{grid-template-columns:1fr 1fr}.features{grid-template-columns:1fr}}
 @media(max-width:560px){.hero{padding:65px 20px 50px}.hero h1{font-size:50px;letter-spacing:-4px}.sale-box{flex-direction:column;align-items:flex-start}.toolbar{flex-direction:column}.filter{height:45px}.products{grid-template-columns:1fr}.cart{width:100%;right:-100%}}
+
+/* ===== REAL IMAGE PRODUCT BANNERS ===== */
+.product-image{
+  height:205px;
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  background:#111;
+}
+.product-image img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .55s ease,filter .55s ease;
+}
+.card:hover .product-image img{
+  transform:scale(1.045);
+  filter:saturate(1.08) brightness(1.04);
+}
+.product-image:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(to top,rgba(0,0,0,.34),transparent 52%);
+}
+.product-image .tag,
+.product-image .heart{z-index:3}
+@media(max-width:700px){
+  .product-image{height:205px}
+}
 </style>
 </head>
 <body>
@@ -85,7 +117,7 @@ footer{margin-top:80px;padding:35px;text-align:center;border-top:1px solid var(-
 
 <div class="products" id="products">
 
-<div class="card" data-name="proxy" data-category="proxy"><div class="image"><span class="tag">HOT</span><button class="heart" onclick="favorite(this)">♡</button>🌐</div><div class="info"><h3>PROXY</h3><p>Drag • Body • Cổ • Ngực</p><div class="prices">
+<div class="card" data-name="proxy" data-category="proxy"><div class="product-image"><img src="proxy-banner.jpeg" alt="Proxy — Network Meow" loading="lazy"><span class="tag">HOT</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="info"><h3>PROXY</h3><p>Drag • Body • Cổ • Ngực</p><div class="prices">
 <div class="plan selected" onclick="selectPlan(this,'PROXY - 1 Tuần',50000)"><span>1 Tuần</span><b>50K</b></div>
 <div class="plan" onclick="selectPlan(this,'PROXY - 1 Tháng',90000)"><span>1 Tháng</span><b>90K</b></div>
 <div class="plan" onclick="selectPlan(this,'PROXY - Vĩnh Viễn',250000)"><span>Vĩnh Viễn</span><b>250K</b></div>
@@ -101,12 +133,12 @@ footer{margin-top:80px;padding:35px;text-align:center;border-top:1px solid var(-
 <div class="plan" onclick="selectPlan(this,'DRIP CLIENT - 1 Tháng',200000)"><span>1 Tháng</span><b>200K</b></div>
 </div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
 
-<div class="card" data-name="mugil lite" data-category="menu"><div class="image"><span class="tag">MENU</span><button class="heart" onclick="favorite(this)">♡</button>🪐</div><div class="info"><h3>MUGIL LITE</h3><p>Gói dịch vụ demo</p><div class="prices">
+<div class="card" data-name="mugil lite" data-category="menu"><div class="product-image"><img src="mugil-banner.jpeg" alt="Mugil" loading="lazy"><span class="tag">PRO</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="info"><h3>MUGIL LITE</h3><p>Gói dịch vụ demo</p><div class="prices">
 <div class="plan selected" onclick="selectPlan(this,'MUGIL LITE - 1 Tuần',150000)"><span>1 Tuần</span><b>150K</b></div>
 <div class="plan" onclick="selectPlan(this,'MUGIL LITE - 1 Tháng',350000)"><span>1 Tháng</span><b>350K</b></div>
 </div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
 
-<div class="card" data-name="mugil pro" data-category="menu"><div class="image"><span class="tag">PRO</span><button class="heart" onclick="favorite(this)">♡</button>🏆</div><div class="info"><h3>MUGIL PRO</h3><p>Gói dịch vụ demo cao cấp</p><div class="prices">
+<div class="card" data-name="mugil pro" data-category="menu"><div class="product-image"><img src="mugil-banner.jpeg" alt="Mugil Pro" loading="lazy"><span class="tag">PRO</span><button class="heart" onclick="favorite(this)">♡</button></div><div class="info"><h3>MUGIL PRO</h3><p>Gói dịch vụ demo cao cấp</p><div class="prices">
 <div class="plan selected" onclick="selectPlan(this,'MUGIL PRO - 1 Tuần',215000)"><span>1 Tuần</span><b>215K</b></div>
 <div class="plan" onclick="selectPlan(this,'MUGIL PRO - 1 Tháng',450000)"><span>1 Tháng</span><b>450K</b></div>
 </div><button class="buy" onclick="buySelected(this)">MUA NGAY</button></div></div>
